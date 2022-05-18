@@ -1,5 +1,5 @@
-import { Specification } from "../model/Specification";
-import { ICreateSpecificationDTO, ISpecificationsReposity } from "./ISpecificationsReposity";
+import { Specification } from "../../model/Specification";
+import { ICreateSpecificationDTO, ISpecificationsReposity } from "../ISpecificationsReposity";
 
 
 
