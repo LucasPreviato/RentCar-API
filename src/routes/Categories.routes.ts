@@ -1,12 +1,11 @@
 import { Router } from "express";
 
-import {CategoriesRepository} from "../modules/cars/repositories/CategoriesRepository"
-import { CreateCategoryService } from "../modules/cars/services/CreateCategoryService";
+import { createCategoryController } from "../modules/cars/useCases/createCategory";
+import { listCategoriesController } from "../modules/cars/useCases/listCategories";
 
 
 const categoriesRouters = Router();
 
-const categoriesRepository = new CategoriesRepository();
 
 
 
@@ -14,18 +13,15 @@ const categoriesRepository = new CategoriesRepository();
 // Com o principios de SOLID essa route está fazendo mais do que deveria 
 // route com  authenticated, created ...., não é responsabilidade dela.
 categoriesRouters.post('/', (req, res) => {
-  const { name, description } = req.body;
-  const createCategoryService = new CreateCategoryService(categoriesRepository);
 
-  createCategoryService.execute({ name, description });
-
-  return res.status(201).send();
+  return createCategoryController.handle(req, res);
 
 })
 
 categoriesRouters.get('/', (req, res) => {
-  const all = categoriesRepository.list();
-  return res.json(all);
+
+ return listCategoriesController.handle(req, res);
+ 
 })
 
 export { categoriesRouters }
