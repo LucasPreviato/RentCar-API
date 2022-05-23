@@ -31,6 +31,7 @@ class ImportCategoryUseCase{
       });
     })
     .on("end", ()=>{
+      fs.promises.unlink(file.path)
       resolve(categories);
      })
     .on("error", (err)=>{
@@ -45,7 +46,7 @@ class ImportCategoryUseCase{
       const categories = await this.loadCategories(file)
 
       // percorre o array para fazer manipulações
-     categories.map(async (category) => {
+ categories.map(async (category) => {
        const {name, description} = category;
 
        const existCategory = this.categoriesRepository.findByName(name);
@@ -56,6 +57,7 @@ class ImportCategoryUseCase{
            description,
           });
        }
+
 
      })
     }
